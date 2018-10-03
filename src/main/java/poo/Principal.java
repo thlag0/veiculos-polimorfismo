@@ -6,6 +6,7 @@ public class Principal {
 
     public static void main(String[] args) {
         System.out.println("Alguns testes para entender...\n");
+        System.out.println("Teste do git \n");
 
         VeiculoTerrestre a = new Ferrari("Testarossa");
         VeiculoTerrestre b = new Panther("Panther2");
