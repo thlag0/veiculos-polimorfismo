@@ -4,6 +4,7 @@ public class Panther extends Veiculo implements VeiculoAnfibio, TracaoIntegral, 
     private boolean tracaoIntegral;
     private boolean capotaAberta;
     private boolean rodasRecolhidas;
+    private double lastro;
     private int temperaturaRefrigerador;
 
     public Panther(String n) {
@@ -16,31 +17,40 @@ public class Panther extends Veiculo implements VeiculoAnfibio, TracaoIntegral, 
 
     @Override
     public boolean abrirCapota() {
-        if (capotaAberta){
-            System.out.println("capota já estava aberta do panther "+ nome);
-            return false;
-        }
-        capotaAberta = true;
-        System.out.println("abrindo capota do panther "+ nome);
-        return true;
-    }
-
-    @Override
-    public boolean fecharCapota() {
-        if (capotaAberta){
-            System.out.println("fechando capota do panther "+ nome);
-            capotaAberta = false;
+        if (velocidadeAtual == 0) {
+            if (capotaAberta) {
+                System.out.println("capota já estava aberta do panther " + nome);
+                return false;
+            }
+            capotaAberta = true;
+            System.out.println("abrindo capota do panther " + nome);
             return true;
-        }
-        System.out.println("capota do panther "+ nome+ " já estava fechada");
+        } else System.out.println("Não é possível abrir capota o carro está em movimento " + nome);
         return false;
     }
 
     @Override
+    public boolean fecharCapota() {
+        if (velocidadeAtual==0){
+        if (capotaAberta) {
+            System.out.println("fechando capota do panther " + nome);
+            capotaAberta = false;
+            return true;
+        }
+        System.out.println("capota do panther " + nome + " já estava fechada");
+        return false;
+    } else System.out.println("Não é possível abrir capota o carro está em movimento ");
+        return false;
+}
+
+    @Override
     public boolean ativarDesativarTracao() {
-        tracaoIntegral = !tracaoIntegral;
-        System.out.println("Tração integral do panther: " + nome +" está " + tracaoIntegral);
-        return tracaoIntegral;
+        if (velocidadeAtual == 0 && rodasRecolhidas == false) {
+            tracaoIntegral = !tracaoIntegral;
+            System.out.println("Tração integral do panther: " + nome + " está " + tracaoIntegral);
+            return tracaoIntegral;
+        }else System.out.println("Não é possível ativar ou desativar a tração ");
+        return false;
     }
 
     @Override
@@ -50,6 +60,7 @@ public class Panther extends Veiculo implements VeiculoAnfibio, TracaoIntegral, 
             return false;
         }
         rodasRecolhidas = true;
+        esvaziarLastro();
         System.out.println("recolhendo rodas do panther "+ nome);
         return true;
     }
@@ -68,6 +79,7 @@ public class Panther extends Veiculo implements VeiculoAnfibio, TracaoIntegral, 
     @Override
     public void esvaziarLastro() {
         System.out.println("Esvaziando lastro do panther "+ nome);
+        lastro = 0;
     }
 
     @Override
@@ -77,7 +89,8 @@ public class Panther extends Veiculo implements VeiculoAnfibio, TracaoIntegral, 
 
     @Override
     public void acelerar(int i) {
-        System.out.println("Panther "+ nome+"acelerando com intensidade " + i);
+        velocidadeAtual+=i;
+        System.out.println("Panther "+ nome+"acelerando com intensidade " + velocidadeAtual);
 
     }
 

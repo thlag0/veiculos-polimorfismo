@@ -17,8 +17,12 @@ public class Principal {
         Veiculo g = new Panther("Panther Fusc");
         Veiculo h = new Pampa("LS");
 
-
+        ((Ferrari) (a)).setVelocidadeAtual(30);
+        ((Panther) b).setVelocidadeAtual(40);
+        ((Pampa) c).setVelocidadeAtual(10);
+        ((Panther) e).setVelocidadeAtual(50);
         a.acelerar(10);
+        System.out.println("Velocidade: "+((Ferrari) a).getNome()+((Ferrari) a).getVelocidadeAtual());
         b.acelerar(10);
         c.acelerar(10);
         e.acelerar(10);
